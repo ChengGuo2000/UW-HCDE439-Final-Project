@@ -28,7 +28,7 @@
                 <img src="assignment3-images/Cheng_IO-2.jpg" width=200></a>
             </p>
             <p>
-                This is my circuit for the Fade assignment.
+                This is my circuit for the Input Output assignment.
             </p>
 
             <hr>
@@ -39,10 +39,10 @@
 // Reference 1: https://docs.arduino.cc/learn/electronics/servo-motors
 // Reference 2: https://www.arduino.cc/reference/en/libraries/servo/ 
 
-#include <Servo.h>
+#include &lt;Servo.h&gt; 
 
 // initialize pins, brightness, and fade amount
-Servo hw3Servo; /// initialize a servo for HW 3
+Servo hw3Servo; // initialize a servo for HW 3
 int photoResistor = A0; // set photo resistor on pin A0
 int redLED = 3; // set the red LED on pin 3
 int servo = 6; // set the servo on pin 6
@@ -100,7 +100,7 @@ void loop() {
             <p>
                 I choose to use a red LED, which has a 1.8V drop. 5V - 1.8V = 3.2V and 3.2V / 20mA = 160Ω. 
                 To not have the current flow through the those two over 20mA, the resistence should be greater than 160Ω.
-                But I want the resistence to be as small as possible. So I used 220Ω resistors for the red and green LEDs.
+                But I want the resistence to be as small as possible. So I used 220Ω resistors for the red LED.
             </p>
             <p>
                 For the photoresistor, it does not have any resistence when there is no light. While I do not want any short circuit,
