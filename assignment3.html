@@ -25,10 +25,13 @@
                 <img src="assignment3-images/Cheng_IO-1.jpg" width=200></a>
             </p>
             <p>
+                This is my circuit for the Input Output assignment when we do not cover the photoresistor.
+            </p>
+            <p>
                 <img src="assignment3-images/Cheng_IO-2.jpg" width=200></a>
             </p>
             <p>
-                This is my circuit for the Input Output assignment.
+                This is my circuit for the Input Output assignment when we cover the photoresistor.
             </p>
 
             <hr>
@@ -95,7 +98,7 @@ void loop() {
 
             <hr>
             <h3>
-                My Calculation: Why did I pick these values for the resistors?
+                My Calculation for LED and the Voltage Divider
             </h3>
             <p>
                 I choose to use a red LED, which has a 1.8V drop. 5V - 1.8V = 3.2V and 3.2V / 20mA = 160Ω. 
@@ -103,8 +106,10 @@ void loop() {
                 But I want the resistence to be as small as possible. So I used 220Ω resistors for the red LED.
             </p>
             <p>
-                For the photoresistor, it does not have any resistence when there is no light. While I do not want any short circuit,
-                So I choosed a 10KΩ resistor because it will make ensure no short circuits.
+                For the Voltage Divider, Vin = 10V, R2 = 10KΩ, R1 ranges from 200KΩ to 10KΩ according to 
+                https://cdn-learn.adafruit.com/downloads/pdf/photocells.pdf,
+                so when R1 is 10KΩ, Vout = 10 / (10 + 10) * 5V = 2.5V, and when R1 is 200KΩ, Vout is 10 / (10 + 200) * 5V = 0.24V. 
+                Both scenarios are safe to operate
             </p>
         </div>
         
