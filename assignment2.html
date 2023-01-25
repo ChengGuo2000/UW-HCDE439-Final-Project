@@ -61,28 +61,28 @@ void loop() {
     digitalWrite(blueLED, HIGH); // turn the blue LED on
     // for green LED, it fade and bright alternatively
     for (int i = 0; i < maxValue; i++) { // turn the green LED on by increasing the value to it
-    // for red LED, it fades when I push the button
-    int buttonRead = digitalRead(pushButton); // read off the input from the push button
-    Serial.println(buttonRead); // show the input on the serial monitor
-    if (buttonRead == 1) { // when the button is pressed
-        analogWrite(redLED, bigBright - fadeAmount); // fade the red LED when pressing the push button
-    } else { // when the button is released
-        analogWrite(redLED, bigBright); // bring the red LED back when releaing the push button
-    }
-    analogWrite(greenLED, i); // write value to the green LED
-    delay(shortDelay); // wait for wait for a centisecond
+        // for red LED, it fades when I push the button
+        int buttonRead = digitalRead(pushButton); // read off the input from the push button
+        Serial.println(buttonRead); // show the input on the serial monitor
+        if (buttonRead == 1) { // when the button is pressed
+            analogWrite(redLED, bigBright - fadeAmount); // fade the red LED when pressing the push button
+        } else { // when the button is released
+            analogWrite(redLED, bigBright); // bring the red LED back when releaing the push button
+        }
+        analogWrite(greenLED, i); // write value to the green LED
+        delay(shortDelay); // wait for a centisecond
     }
     for (int j = maxValue; j >= 0; j--) { // turn the green LED off by decreasing the value to it
-    // for red LED, it fades when I push the button
-    int buttonRead = digitalRead(pushButton); // read off the input from the push button
-    Serial.println(buttonRead); // show the input on the serial monitor
-    if (buttonRead == 1) { // when the button is pressed
-        analogWrite(redLED, bigBright - fadeAmount); // fade the red LED when pressing the push button
-    } else { // when the button is released
-        analogWrite(redLED, bigBright); // bring the red LED back when releaing the push button
-    }
-    analogWrite(greenLED, j); // write value to the green LED
-    delay(shortDelay); // wait for a centisecond
+        // for red LED, it fades when I push the button
+        int buttonRead = digitalRead(pushButton); // read off the input from the push button
+        Serial.println(buttonRead); // show the input on the serial monitor
+        if (buttonRead == 1) { // when the button is pressed
+            analogWrite(redLED, bigBright - fadeAmount); // fade the red LED when pressing the push button
+        } else { // when the button is released
+            analogWrite(redLED, bigBright); // bring the red LED back when releaing the push button
+        }
+        analogWrite(greenLED, j); // write value to the green LED
+        delay(shortDelay); // wait for a centisecond
     }
     digitalWrite(blueLED, LOW); // turn the blue LED off
     delay(maxValue * shortDelay); // wait for a quarter second
