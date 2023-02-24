@@ -1,5 +1,5 @@
 var serial; // variable to hold an instance of the serialport library
-var portName = '/dev/tty.usbmodem14301'; //rename to the name of your port
+var portName = '/dev/tty.usbmodem14201'; //rename to the name of your port
 var dataarray = []; //some data coming in over serial!
 var xPos = 0;
 
@@ -16,7 +16,7 @@ function setup() {
   serial.list();                      // list the serial ports
   serial.open(portName);              // open a serial port
   createCanvas(1200, 800);
-  background(0x08, 0x16, 0x40);
+  background(255, 0, 0);
 }
  
 // get the list of ports:
@@ -69,17 +69,17 @@ function graphData(newData) {
   if (xPos >= width) {
     xPos = 0;
     // clear the screen by resetting the background:
-    background(0x08, 0x16, 0x40);
+    background(255, 0, 0);
   } else {
     // pass
   }
 }
 
 function draw() {
-  stroke('rgba(0,255,0,0.25)'); // green
+  stroke('rgba(255,255,255,1)'); // green
   graphData(dataarray[0]);
 
-  stroke('rgba(0,80,255,0.5)'); // blue
+  stroke('rgba(0,0,0,1)'); // blue
   graphData(dataarray[1]);
   xPos++;
 }
