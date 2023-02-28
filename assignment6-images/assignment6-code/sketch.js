@@ -15,7 +15,11 @@ function setup() {
 
   serial.list();                      // list the serial ports
   serial.open(portName);              // open a serial port
-  createCanvas(600, 600);             // make a 600 * 600 pixels canvas
+  createCanvas(1024, 1024);             // make a 600 * 600 pixels canvas
+  button = createButton("Blink LED!"); // create a button with text "Blink LED!" on it
+  button.mouseClicked(clickButton); // set a function when click the button
+  button.size(100,40); // set the size of the button
+  button.position(100,100); // set the position of the button
 }
 
 // get the list of ports:
@@ -59,12 +63,6 @@ function serialEvent() {
   }
 }
 
-function keyPressed() { // function for P5 communicates to Arduino
-	console.log("writing key"); // check the console if a key is pressed
-	serial.write(key); // write the key to the Arduino
-}
-
-
 function graphData(newData) {
   // map the range of the input to the window height:
   var yPos = map(newData, 0, 255, 0, height);
@@ -87,14 +85,22 @@ function draw() { // function for Arduino communicates to P5
   fill(255); // initialize the fill color
 
   if (xInput < 200 && yInput < 200) { // if the joystick is on the top-left
-    text("Move up", 300,300); // write "Move up" in the middle of the screen
+    text("Move up", 512,512); // write "Move up" in the middle of the screen
   } else if (xInput < 200 && yInput > 823) { // if the joystick is on the bottom-left
-    text("Move to the left", 300,300); // write "Move to the left" in the middle of the screen
+    text("Move to the left", 512,512); // write "Move to the left" in the middle of the screen
   } else if (xInput > 823 && yInput < 200) { // if the joystick is on the top-right
-    text("Move to the right", 300,300); // write "Move to the right" in the middle of the screen
+    text("Move to the right", 512,512); // write "Move to the right" in the middle of the screen
   } else if (xInput > 823 && yInput > 823) { // if the joystick is on the bottom-right
-    text("Move down", 300,300); // write "Move down" in the middle of the screen
+    text("Move down", 512,512); // write "Move down" in the middle of the screen
   } else { // if the joystick remains on the original position
-    text("No motion", 300,300) // write "No motion" in the middle of the screen
+    text("No motion", 512,512); // write "No motion" in the middle of the screen
   }
+  ellipse(xInput, yInput, xInput, yInput); // create an ellipse 
+  // with position and size defined by the joystick input
+}
+
+function clickButton() { // function when click the button
+  var toArduino = random(0, 256); // generate a random number
+  console.log("Communicating to Arduino: " + toArduino); // check the console if a number is generated
+  serial.write(toArduino); // write the number to the Arduino
 }
