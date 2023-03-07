@@ -61,14 +61,133 @@
                 We usually petting them on their head, and gently stroke their fur for enjoyment.
             </p>
             <ol>
-                <li>LCD: display messages response to user's behavior</li>
-                <li>Photoresistor: detecting user's petting</li>
-                <li>Joystick: as a fidget toy control</li>
-                <li>Ultrasonic sensor: not functional in the robot, just mimicking the eyes</li>
+                <li>LCD: display messages response to user's behavior. LCD will display "I am here!" when nothing happens.</li>
+                <li>Photoresistor: detecting user's petting. LCD will display "I Love You!" when we cover the photoresistor through petting.</li>
+                <li>Joystick: as a fidget toy controling display on LCD. 
+                    LCD will display "Lift me up!" when the joystick is on the top-left position. 
+                    LCD will display "Turn left!" when the joystick is on the bottom-left position. 
+                    LCD will display "Turn right!" when the joystick is on the top-right position. 
+                    LCD will display "Put me down!" when the joystick is on the bottom-right position. </li>
+                <li>Ultrasonic sensor: not functional in the robot, just mimicking the eyes.</li>
             </ol>
 
             <hr>
             <h2>Technical Implementation</h2>
+            <p>
+                <img src="final-project-images/Cheng_Final_Schematic.jpg" width=200></a>
+            </p>
+            <p>
+                This is my schematic for the Final Project.
+            </p>
+
+            <p>
+                <img src="final-project-images/Cheng_Final.jpg" width=200></a>
+            </p>
+            <p>
+                This is my circuit for the Final Project.
+            </p>
+            
+            <p>
+                <video width="350" controls>
+                    <source src="final-project-images/Cheng_Final.mp4" type="video/mp4">
+                </video>
+            </p>
+            <p>
+                This is my video demo for the Final Project.
+            </p>
+            <pre>
+                <code>
+// Cheng Guo
+// HCDE 439 - Final Project
+// Reference 1: <a href="https://docs.arduino.cc/learn/electronics/lcd-displays">https://docs.arduino.cc/learn/electronics/lcd-displays</a>
+
+#include &lt;LiquidCrystal.h&gt; // include the LED code
+
+// initialize Photoresistor, Joystick, and Ultrasonic Sensor
+int photoResistor = A0; // set photo resistor input on pin A0
+int median = 600; // set the median read from the photoResistor to 600
+int xJoystick = A2; // set the x-axis input on pin A2
+int yJoystick = A4; // set the y-axis input on pin A4
+
+// initialize the library by associating any needed LCD interface pin
+int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+// with the arduino pin number it is connected to
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+// the setup routine runs once when you press reset:
+void setup() {
+    // initialize digital pins as input and outputs.
+    pinMode(photoResistor, INPUT); // set photo resistor input on pin A0
+    lcd.begin(16, 2); // set up the LCD's number of columns and rows
+    lcd.print("I am here!"); // print the state on LCD
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+    // Adjust the trig pin before receiving pulse
+    digitalWrite(trig, LOW); // adjust the trig pin before receiving pulse
+    delay(2);  // wait for 2 milliseconds
+    digitalWrite(trig, HIGH); // adjust the trig pin before receiving pulse
+    delay(10);  // wait for 10 milliseconds
+    digitalWrite(trig, LOW); // adjust the trig pin before receiving pulse
+
+    // petting on the top of the robot
+    int photoInput = analogRead(photoResistor); // read the input from the photo resistor
+    if (photoInput < median) { // if the light input is small, then the owner is petting
+        lcd.clear(); // clean the LCD for display
+        lcd.setCursor(0, 0); // set the cursor to (0,0)
+        lcd.print("I Love You!"); // print the state on LCD
+        delay(1000); // delay for 1 second
+    } else { // if the light input is big, return to normal face
+        lcd.clear(); // clean the LCD for display
+        lcd.setCursor(0, 0); // set the cursor to (0,0)
+        lcd.print("I am here!"); // print the state on LCD
+        delay(1000); // delay for 1 second
+    }
+
+    // change the face output on LCD based on joystick inputs
+    int xInput = analogRead(xJoystick); // record input from x-axis
+    int yInput = analogRead(yJoystick); // record input from y-axis
+    if (xInput < 200 && yInput < 200) { // if the joystick is on the top-left
+        lcd.clear(); // clean the LCD for display
+        lcd.setCursor(0, 0); // set the cursor to (0,0)
+        lcd.print("Lift me up!"); // print the state on LCD
+        delay(1000); // delay for 1 second
+    } else if (xInput < 200 && yInput > 823) { // if the joystick is on the bottom-left
+        lcd.clear(); // clean the LCD for display
+        lcd.setCursor(0, 0); // set the cursor to (0,0)
+        lcd.print("Turn left!"); // print the state on LCD
+        delay(1000); // delay for 1 second
+    } else if (xInput > 823 && yInput < 200) { // if the joystick is on the top-right
+        lcd.clear(); // clean the LCD for display
+        lcd.setCursor(0, 0); // set the cursor to (0,0)
+        lcd.print("Turn right!"); // print the state on LCD
+        delay(1000); // delay for 1 second
+    } else if (xInput > 823 && yInput > 823) { // if the joystick is on the bottom-right
+        lcd.clear(); // clean the LCD for display
+        lcd.setCursor(0, 0); // set the cursor to (0,0)
+        lcd.print("Put me down!"); // print the state on LCD
+        delay(1000); // delay for 1 second
+    }
+}
+                </code>
+            </pre>
+            <p>
+                This is my firmwire for the Final Project.
+            </p>
+
+            <p>
+                I chose a 10KΩ potentiometer for the LCD.
+                Based on the information from: 
+                <a href="https://maxpromer.github.io/LCD-Character-Creator/img/ArduinoUnoR3LCD.png">https://maxpromer.github.io/LCD-Character-Creator/img/ArduinoUnoR3LCD.png</a>,
+            </p>
+
+            <p>
+                For the Voltage Divider, Vin = 10V, R2 = 10KΩ, R1 ranges from 200KΩ to 10KΩ according to 
+                <a href="https://cdn-learn.adafruit.com/downloads/pdf/photocells.pdf">https://cdn-learn.adafruit.com/downloads/pdf/photocells.pdf</a>,
+                so when R1 is 10KΩ, Vout = 10 / (10 + 10) * 5V = 2.5V, and when R1 is 200KΩ, Vout is 10 / (10 + 200) * 5V = 0.24V. 
+                Both scenarios are safe to operate.
+            </p>
         
         </div>
         
